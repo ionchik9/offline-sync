@@ -13,4 +13,5 @@ public interface AbstractAccountingEntityRepository<T> {
     List<BasicSyncProjection> findByIdIn(Iterable<UUID> ids);
 
     <S extends T> List<S> saveAll(Iterable<S> entities);
+
 }

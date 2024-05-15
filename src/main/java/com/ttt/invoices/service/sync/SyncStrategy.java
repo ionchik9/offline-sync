@@ -1,4 +1,4 @@
-package com.ttt.invoices.service;
+package com.ttt.invoices.service.sync;
 
 
 import com.ttt.invoices.domain.dto.sync.SyncResponseDTO;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  *
  * @param <T> Entity Type to be synchronized.
  */
-public interface SyncService<T extends BaseEntity> {
+public interface SyncStrategy<T extends BaseEntity> {
 
     /**
      * Returns the repository associated with the Entity    .
@@ -64,17 +64,17 @@ public interface SyncService<T extends BaseEntity> {
     /**
      * Retrieves entities associated with a specified accounting entity ID that have been updated since a given timestamp.
      *
-     * @param accEntityId ID of the accounting entity.
+     * @param accountingEntityId ID of the accounting entity.
      * @param lastUpdated Timestamp indicating the last time synchronization was performed.
      * @param batchSize   Maximum number of entities to retrieve in a single batch.
      * @return A SyncResponseDTO containing the updated entities.
      */
     @Transactional(readOnly = true)
-    default SyncResponseDTO<T> getEntities(long accEntityId, Instant lastUpdated, int batchSize) {
+    default SyncResponseDTO<T> getEntities(long accountingEntityId, Instant lastUpdated, int batchSize) {
         Pageable pageable = PageRequest.of(0, batchSize);
 
         List<T> dataSlice = getRepository()
-                .findByAccountingEntityIdAndUpdatedAtGreaterThanEqualOrderByUpdatedAtAsc(accEntityId, lastUpdated, pageable);
+                .findByAccountingEntityIdAndUpdatedAtGreaterThanEqualOrderByUpdatedAtAsc(accountingEntityId, lastUpdated, pageable);
 
         Instant lastItemUpdateTime = !dataSlice.isEmpty() ? dataSlice.get(dataSlice.size() - 1).getUpdatedAt() : Instant.now();
 
