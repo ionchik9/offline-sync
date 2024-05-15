@@ -17,6 +17,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
+
 @Slf4j
 @RestController
 @RequestMapping("v4/sync/{accountingEntityId}")
@@ -36,7 +38,7 @@ public class SyncController {
     }
 
     @GetMapping("/items")
-    public SyncResponseDTO<Item> getItems(@RequestParam long lastUpdated, @RequestParam int batchSize, @PathVariable long accountingEntityId) {
+    public SyncResponseDTO<Item> getItems(@RequestParam Instant lastUpdated, @RequestParam int batchSize, @PathVariable long accountingEntityId) {
         log.debug("Get Items: {} {}.", lastUpdated, batchSize);
         return itemsSyncService.getEntities(accountingEntityId, lastUpdated, batchSize);
     }
@@ -50,7 +52,7 @@ public class SyncController {
     }
 
     @GetMapping("/companies")
-    public SyncResponseDTO<Company> getCompanies(@RequestParam long lastUpdated, @RequestParam int batchSize, @PathVariable long accountingEntityId) {
+    public SyncResponseDTO<Company> getCompanies(@RequestParam Instant lastUpdated, @RequestParam int batchSize, @PathVariable long accountingEntityId) {
         log.debug("Get Companies: {}, {}, {}", accountingEntityId, lastUpdated, batchSize);
         return companiesSyncService.getEntities(accountingEntityId, lastUpdated, batchSize);
     }
@@ -63,7 +65,7 @@ public class SyncController {
     }
 
     @GetMapping("/clients")
-    public SyncResponseDTO<Client> getClients(@RequestParam long lastUpdated, @RequestParam int batchSize, @PathVariable long accountingEntityId) {
+    public SyncResponseDTO<Client> getClients(@RequestParam Instant lastUpdated, @RequestParam int batchSize, @PathVariable long accountingEntityId) {
         log.debug("Get Clients: {}, {}, {}", accountingEntityId, lastUpdated, batchSize);
         return clientsSyncService.getEntities(accountingEntityId,  lastUpdated, batchSize);
     }
@@ -80,7 +82,7 @@ public class SyncController {
     @GetMapping("/payment-options")
     public SyncResponseDTO<PaymentMethod> getPaymentOptionsEvents(
             @PathVariable long accountingEntityId,
-            @RequestParam long lastUpdated,
+            @RequestParam Instant lastUpdated,
             @RequestParam("batchSize") int batchSize) {
         log.debug("Get Payment Options: {} {}.", lastUpdated, batchSize);
         SyncResponseDTO<PaymentMethod> dto = paymentMethodsSyncService.getEntities(accountingEntityId,  lastUpdated, batchSize);

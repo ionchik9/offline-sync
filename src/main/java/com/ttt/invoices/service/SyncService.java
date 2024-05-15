@@ -72,12 +72,11 @@ public interface SyncService<T extends BaseEntity> {
      * @return A SyncResponseDTO containing the updated entities.
      */
     @Transactional(readOnly = true)
-    default SyncResponseDTO<T> getEntities(long accEntityId, long lastUpdated, int batchSize) {
+    default SyncResponseDTO<T> getEntities(long accEntityId, Instant lastUpdated, int batchSize) {
         Pageable pageable = PageRequest.of(0, batchSize);
-        Instant timestamp = Instant.ofEpochMilli(lastUpdated);
 
         List<T> dataSlice = getRepository()
-                .findByAccountingEntityIdAndUpdatedAtGreaterThanEqualOrderByUpdatedAtAsc(accEntityId, timestamp, pageable);
+                .findByAccountingEntityIdAndUpdatedAtGreaterThanEqualOrderByUpdatedAtAsc(accEntityId, lastUpdated, pageable);
 
         Instant lastItemUpdateTime = !dataSlice.isEmpty() ? dataSlice.get(dataSlice.size() - 1).getUpdatedAt() : Instant.now();
 

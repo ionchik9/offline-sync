@@ -127,6 +127,19 @@ public class SyncControllerTest {
     }
 
     @Test
+    public void testGetCompanies_skipOld() throws Exception {
+        var comp = dataManager.saveRandomActiveCompany();
+        var randomComp = dataManager.saveRandomActiveCompany();
+
+        mockMvc.perform(get(API + "{id}/companies", comp.getAccountingEntityId())
+                        .queryParam("batchSize", "10")
+                        .queryParam("lastUpdated", comp.getUpdatedAt().plusSeconds(2).toString())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.events", hasSize(0)));
+    }
+
+    @Test
     public void testSaveItems() throws Exception {
         var item = Instancio.of(Item.class)
                 .create();

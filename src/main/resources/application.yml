@@ -1,1 +1,35 @@
-spring.application.name=invoices
+spring:
+  application:
+    name: invoices-api
+  cloud:
+    config:
+      enabled: false
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: jdbc:postgresql://localhost:5442/invoices?ssl=false
+    username: user
+    password: password
+  jpa:
+    show-sql: true
+    generate-ddl: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      naming:
+        physical-strategy: com.ttt.invoices.config.CustomPhysicalNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.springframework.orm.jpa: DEBUG
+    org.springframework.transaction: DEBUG
+
+
+springdoc.api-docs.path: /api/v1/invoices/api-doc
