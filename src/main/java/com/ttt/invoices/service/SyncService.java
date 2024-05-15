@@ -49,8 +49,6 @@ public interface SyncService<T extends BaseEntity> {
 
         foundEntities.forEach(existingEntity -> {
             T updatedEntity = updatedMap.get(existingEntity.getId());
-            System.out.println("exxxx: " + existingEntity.getUpdatedAt());
-            System.out.println("upd: " + updatedEntity.getUpdatedAt());
             if (updatedEntity != null && updatedEntity.getUpdatedAt().isBefore(existingEntity.getUpdatedAt())) {
                 updatedMap.remove(existingEntity.getId());
             }
