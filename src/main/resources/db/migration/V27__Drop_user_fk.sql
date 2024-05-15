@@ -1,0 +1,25 @@
+ALTER TABLE companies
+    DROP CONSTRAINT "FK_6d64e8c7527a9e4af83cc66cbf7";
+
+
+ALTER TABLE estimates
+    DROP CONSTRAINT "FK_97db78591ba0170ad2fb30dfbeb";
+
+
+ALTER TABLE clients
+    DROP CONSTRAINT "FK_59c1e5e51addd6ebebf76230b37";
+
+
+ALTER TABLE invoices
+    DROP CONSTRAINT "FK_fcbe490dc37a1abf68f19c5ccb9";
+
+
+ALTER TABLE items
+    DROP CONSTRAINT "FK_40e681891fea5a4b3c5c2546d15";
+
+
+ALTER TABLE payment_methods
+    DROP CONSTRAINT "FK_580f1dbf7bceb9c2cde8baf7ff4";
+
+
+

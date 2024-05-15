@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS migrations;
+DROP TABLE IF EXISTS otp_codes;
+DROP TABLE IF EXISTS sessions;
+DROP TABLE IF EXISTS subscriptions;
+DROP TABLE IF EXISTS tmp_invoices;
+DROP TABLE IF EXISTS tmp_users;
+DROP TABLE IF EXISTS tmp_sso_emails;

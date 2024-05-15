@@ -1,0 +1,23 @@
+spring:
+  cloud:
+    config:
+      enabled: false
+  flyway:
+    enabled: true
+  application:
+    name: invoices-api
+  datasource:
+    url: jdbc:tc:postgresql:14-alpine:///
+    username: user
+    password: password
+  jpa:
+    show-sql: true
+    generate-ddl: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      naming:
+        physical-strategy: com.ttt.invoices.config.CustomPhysicalNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
