@@ -7,11 +7,9 @@ import lombok.experimental.SuperBuilder;
 
 
 @EqualsAndHashCode(of = {"id"})
-@Getter
-@Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Entity
 @Table(name = "clients")
 @SuperBuilder
