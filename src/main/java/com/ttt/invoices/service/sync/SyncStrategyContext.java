@@ -30,9 +30,10 @@ public class SyncStrategyContext {
      * @param accountingEntityId the ID of the accounting entity associated with the entities.
      * @param <T> the type of entities extending BaseEntity.
      */
-    @SuppressWarnings("rawtypes")
-    public <T extends BaseEntity>  void saveEntities(Class<T> clazz, List updated, long accountingEntityId){
-        syncStrategiesMap.get(clazz).saveEntities(updated, accountingEntityId);
+    @SuppressWarnings({"unchecked"})
+    public <T extends BaseEntity>  void saveEntities(Class<T> clazz, List<T> updated, long accountingEntityId){
+        var strategy = (SyncStrategy<T>) syncStrategiesMap.get(clazz);
+        strategy.saveEntities(updated, accountingEntityId);
     }
 
 
@@ -46,6 +47,7 @@ public class SyncStrategyContext {
      * @param <T> the type of entities extending BaseEntity.
      * @return a SyncResponseDTO containing the updated entities.
      */
+    @SuppressWarnings("unchecked")
     public <T extends BaseEntity>  SyncResponseDTO<T> getEntities(Class<T> clazz, long accountingEntityId, Instant lastUpdated, int batchSize){
         return (SyncResponseDTO<T>) syncStrategiesMap.get(clazz).getEntities(accountingEntityId, lastUpdated, batchSize);
     }
