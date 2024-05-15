@@ -30,6 +30,7 @@ public class SyncStrategyContext {
      * @param accountingEntityId the ID of the accounting entity associated with the entities.
      * @param <T> the type of entities extending BaseEntity.
      */
+    @SuppressWarnings("rawtypes")
     public <T extends BaseEntity>  void saveEntities(Class<T> clazz, List updated, long accountingEntityId){
         syncStrategiesMap.get(clazz).saveEntities(updated, accountingEntityId);
     }

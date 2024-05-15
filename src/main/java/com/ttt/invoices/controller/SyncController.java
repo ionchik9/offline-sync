@@ -25,7 +25,7 @@ public class SyncController {
 
     @PostMapping("/items")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void saveItems(@PathVariable long accountingEntityId, @RequestBody @Validated SyncRequestDTO<Item> dto) {
+    public void saveItems(@PathVariable long accountingEntityId, @RequestBody SyncRequestDTO<Item> dto) {
         log.debug("Save Items: {}.", dto);
         syncService.saveEntities(Item.class, dto.getEvents(), accountingEntityId);
         log.debug("Successfully saved.");
@@ -39,7 +39,7 @@ public class SyncController {
 
     @PostMapping("/companies")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void saveCompanies(@PathVariable long accountingEntityId, @RequestBody @Validated SyncRequestDTO<Company> dto) {
+    public void saveCompanies(@PathVariable long accountingEntityId, @RequestBody SyncRequestDTO<Company> dto) {
         log.debug("Save Companies: {}.", dto);
         syncService.saveEntities(Company.class, dto.getEvents(), accountingEntityId);
         log.debug("Successfully saved.");
@@ -67,7 +67,7 @@ public class SyncController {
     @PostMapping("/payment-options")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void savePaymentOptions(@PathVariable long accountingEntityId,
-                                   @RequestBody @Validated SyncRequestDTO<PaymentMethod> dto) {
+                                   @RequestBody SyncRequestDTO<PaymentMethod> dto) {
         log.debug("Save Payment Options: {}.", dto);
         syncService.saveEntities(PaymentMethod.class, dto.getEvents(), accountingEntityId);
         log.debug("Successfully saved.");

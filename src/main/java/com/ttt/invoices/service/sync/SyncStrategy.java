@@ -78,6 +78,6 @@ public interface SyncStrategy<T extends BaseEntity> {
 
         Instant lastItemUpdateTime = !dataSlice.isEmpty() ? dataSlice.get(dataSlice.size() - 1).getUpdatedAt() : Instant.now();
 
-        return new SyncResponseDTO<>(lastItemUpdateTime.toEpochMilli(), dataSlice);
+        return new SyncResponseDTO<T>(lastItemUpdateTime.toEpochMilli(), dataSlice);
     }
 }
